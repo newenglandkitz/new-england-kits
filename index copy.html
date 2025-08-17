@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boston Kits - Premium Jerseys for Every Fan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-futbol"></i>
+                <span>BostonKits</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#jerseys" class="nav-link">Jerseys</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                <!-- </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li> -->
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Boston Kits</h1>
+            <p class="hero-subtitle">High quality jerseys from top leagues and teams worldwide. Shoot us an email to get your jersey or for more information <a href="mailto:newenglandkits@gmail.com">newenglandkits@gmail.com</a></p>
+            <a href="#jerseys" class="cta-button">View Stock Available</a>
+        </div>
+        <div class="hero-image">
+            <div class="jersey-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="./img/IMG_7440.JPG" alt="Jersey 1" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./img/IMG_7441.JPG" alt="Jersey 2" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./img/IMG_7445.JPG" alt="Jersey 3" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./img/IMG_7447.JPG" alt="Jersey 4" class="carousel-image">
+                    </div>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <!-- <section class="categories">
+        <div class="container">
+            <h2 class="section-title">View by League</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Premier League</h3>
+                    <p>Official jerseys from England's top division</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>La Liga</h3>
+                    <p>Authentic Spanish league jerseys</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Bundesliga</h3>
+                    <p>German league excellence</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Serie A</h3>
+                    <p>Italian football tradition</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Jerseys Section -->
+    <section id="jerseys" class="jerseys">
+        <div class="container">
+            <h2 class="section-title">In Stock Jerseys</h2>
+            <div class="jersey-grid">
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="./img/IMG_7440.JPG" alt="Arsenal Home Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Arsenal Home Jersey</h3>
+                        <p class="jersey-team">Arsenal FC</p>
+                        <p class="jersey-price">$40</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="https://via.placeholder.com/300x400/4ecdc4/ffffff?text=Barcelona+Away" alt="Barcelona Away Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Barcelona Away Jersey</h3>
+                        <p class="jersey-team">FC Barcelona</p>
+                        <p class="jersey-price">$94.99</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="https://via.placeholder.com/300x400/45b7d1/ffffff?text=Bayern+Home" alt="Bayern Munich Home Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Bayern Munich Home</h3>
+                        <p class="jersey-team">Bayern Munich</p>
+                        <p class="jersey-price">$92.99</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="https://via.placeholder.com/300x400/96ceb4/ffffff?text=Juventus+Home" alt="Juventus Home Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Juventus Home Jersey</h3>
+                        <p class="jersey-team">Juventus FC</p>
+                        <p class="jersey-price">$87.99</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="https://via.placeholder.com/300x400/ffeaa7/ffffff?text=Real+Madrid+Home" alt="Real Madrid Home Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Real Madrid Home</h3>
+                        <p class="jersey-team">Real Madrid CF</p>
+                        <p class="jersey-price">$96.99</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="jersey-item">
+                    <div class="jersey-image">
+                        <img src="https://via.placeholder.com/300x400/dda0dd/ffffff?text=Manchester+City" alt="Manchester City Home Jersey">
+                        <div class="jersey-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="jersey-info">
+                        <h3>Manchester City Home</h3>
+                        <p class="jersey-team">Manchester City</p>
+                        <p class="jersey-price">$91.99</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Boston Kits</h2>
+                    <p>We're passionate about bringing you affordable but also the highest quality replica soccer jerseys from the world's most prestigious clubs and leagues.</p>
+                    
+                </div>
+                <div class="about-image">
+                    <img src="./img/New England Kits Logo Design.png" alt="Quality Jerseys">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>newenglandkits@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="img/Boston Kits Logo Design.png" alt="Boston Kits Logo" style="height: 50px; width: auto;">
+                    </div>
+                    <p>Your premier destination for affordable but also the highest quality replica soccer jerseys from the world's most prestigious clubs and leagues.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#jerseys">Jerseys</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for updates and exclusive offers!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BostonKits. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
