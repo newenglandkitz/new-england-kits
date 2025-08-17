@@ -1,6 +1,6 @@
 # New England Kits - Soccer Jersey Store
 
-A modern, responsive website for showcasing and selling soccer jerseys. Built with HTML, CSS, and JavaScript, featuring a clean design and interactive elements.
+A modern, responsive website for showcasing soccer jerseys. Built with HTML, CSS, and JavaScript, featuring a clean design and interactive elements.
 
 ## 🚀 Features
 

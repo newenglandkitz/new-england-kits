@@ -289,7 +289,8 @@ const observer = new IntersectionObserver((entries) => {
 async function loadJerseysFromCSV() {
     try {
         console.log('Loading jerseys from CSV...');
-        const response = await fetch('jerseys.csv');
+        // Add cache-busting parameter to force fresh load
+        const response = await fetch(`jerseys.csv?t=${Date.now()}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -311,8 +312,12 @@ function parseCSV(csvText) {
     const headers = lines[0].split(',').map(h => h.trim());
     const jerseys = [];
     
+    console.log('=== CSV PARSING DEBUG ===');
     console.log('Headers:', headers);
     console.log('Total lines in CSV:', lines.length);
+    console.log('Raw CSV content:', csvText);
+    console.log('First line (headers):', lines[0]);
+    console.log('Second line (first data):', lines[1]);
     
     for (let i = 1; i < lines.length; i++) {
         const line = lines[i].trim();
@@ -321,38 +326,57 @@ function parseCSV(csvText) {
             continue; // Skip empty lines
         }
         
-        console.log(`Processing line ${i}:`, line);
+        console.log(`\n--- Processing line ${i} ---`);
+        console.log(`Raw line: "${line}"`);
         
         // Simple split by comma for now, handle edge cases
         const values = line.split(',').map(v => v.trim());
+        console.log(`Split values:`, values);
+        console.log(`Values length:`, values.length);
+        console.log(`Headers length:`, headers.length);
         
         const jersey = {};
         headers.forEach((header, index) => {
-            jersey[header] = values[index] ? values[index].replace(/"/g, '') : '';
+            const value = values[index] ? values[index].replace(/"/g, '') : '';
+            jersey[header] = value;
+            console.log(`Setting ${header} = "${value}"`);
         });
         
-        console.log('Parsed jersey:', jersey);
+        console.log('Final jersey object:', jersey);
+        
+        // Check availability status with more detailed logging
+        const availableValue = jersey.available;
+        const isAvailable = availableValue === 'true';
+        
+        console.log(`\n--- Availability Check ---`);
+        console.log(`Available value: "${availableValue}"`);
+        console.log(`Available value type: ${typeof availableValue}`);
+        console.log(`Available value length: ${availableValue ? availableValue.length : 0}`);
+        console.log(`Available value char codes: ${availableValue ? availableValue.split('').map(c => c.charCodeAt(0)) : 'undefined'}`);
+        console.log(`Is available: ${isAvailable}`);
+        console.log(`Comparison: "${availableValue}" === "true" = ${availableValue === 'true'}`);
         
         // Check why jersey might be filtered out
-        if (jersey.available !== 'true') {
-            console.log(`Jersey "${jersey.name}" filtered out - available: ${jersey.available}`);
+        if (!isAvailable) {
+            console.log(`❌ Jersey "${jersey.name}" filtered out - available: "${availableValue}"`);
         }
         if (!jersey.name) {
-            console.log(`Jersey filtered out - missing name`);
+            console.log(`❌ Jersey filtered out - missing name`);
         }
         if (!jersey.image) {
-            console.log(`Jersey "${jersey.name}" filtered out - missing image`);
+            console.log(`❌ Jersey "${jersey.name}" filtered out - missing image`);
         }
         
-        // Only add if available and has required fields
-        if (jersey.available === 'true' && jersey.name && jersey.image) {
+        // Only add if has required fields (include all regardless of availability)
+        if (jersey.name && jersey.image) {
             jerseys.push(jersey);
-            console.log(`Added jersey: ${jersey.name}`);
+            console.log(`✅ Added jersey: ${jersey.name} (available: ${isAvailable})`);
         } else {
-            console.log(`Filtered out jersey: ${jersey.name} (available: ${jersey.available}, name: ${!!jersey.name}, image: ${!!jersey.image})`);
+            console.log(`❌ Filtered out jersey: ${jersey.name} (name: ${!!jersey.name}, image: ${!!jersey.image})`);
         }
     }
     
+    console.log('\n=== FINAL RESULTS ===');
     console.log('Total jerseys parsed:', jerseys.length);
     console.log('All parsed jerseys:', jerseys);
     return jerseys;
@@ -390,7 +414,7 @@ function displayJerseys(jerseys) {
 // Debug function to show all jerseys regardless of available flag
 function displayAllJerseysFromCSV() {
     console.log('DEBUG: Loading ALL jerseys regardless of available flag');
-    fetch('jerseys.csv')
+    fetch(`jerseys.csv?t=${Date.now()}`)
         .then(response => response.text())
         .then(csvText => {
             const lines = csvText.trim().split('\n');
@@ -410,6 +434,7 @@ function displayAllJerseysFromCSV() {
                 // Include all jerseys regardless of available flag
                 if (jersey.name && jersey.image) {
                     allJerseys.push(jersey);
+                    console.log(`DEBUG: Added jersey "${jersey.name}" (available: ${jersey.available})`);
                 }
             }
             
@@ -421,10 +446,23 @@ function displayAllJerseysFromCSV() {
         });
 }
 
+// Manual refresh function
+function refreshJerseys() {
+    console.log('Manual refresh triggered');
+    loadJerseysFromCSV();
+}
+
 // Create a single jersey item element
 function createJerseyItem(jersey) {
     const jerseyItem = document.createElement('div');
     jerseyItem.className = 'jersey-item';
+    
+    // Add availability indicator for debugging
+    const availabilityClass = jersey.available === 'true' ? 'available' : 'unavailable';
+    const availabilityText = jersey.available === 'true' ? '' : ' (UNAVAILABLE)';
+    
+    // Apply the availability class to the jersey item
+    jerseyItem.classList.add(availabilityClass);
     
     jerseyItem.innerHTML = `
         <div class="jersey-image">
@@ -434,12 +472,19 @@ function createJerseyItem(jersey) {
             </div>
         </div>
         <div class="jersey-info">
-            <h3>${jersey.name}</h3>
+            <h3>${jersey.name}${availabilityText}</h3>
             <p class="jersey-team">${jersey.team}</p>
             <p class="jersey-price">$${jersey.price}</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
+            <p class="availability-status">Status: ${jersey.available === 'true' ? 'Available' : 'Unavailable'}</p>
+            <button class="add-to-cart-btn" ${jersey.available !== 'true' ? 'disabled' : ''}>${jersey.available === 'true' ? 'Add to Cart' : 'Out of Stock'}</button>
         </div>
     `;
+    
+    // Add visual styling for unavailable items
+    if (jersey.available !== 'true') {
+        jerseyItem.style.opacity = '0.6';
+        jerseyItem.style.filter = 'grayscale(50%)';
+    }
     
     return jerseyItem;
 }
@@ -582,9 +627,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Test function to check CSV parsing
+function testCSVParsing() {
+    console.log('=== CSV PARSING TEST ===');
+    fetch(`jerseys.csv?t=${Date.now()}`)
+        .then(response => response.text())
+        .then(csvText => {
+            console.log('Raw CSV:', csvText);
+            
+            const lines = csvText.trim().split('\n');
+            console.log('Lines:', lines);
+            
+            const headers = lines[0].split(',').map(h => h.trim());
+            console.log('Headers:', headers);
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const values = line.split(',').map(v => v.trim());
+                console.log(`Line ${i} values:`, values);
+                
+                const jersey = {};
+                headers.forEach((header, index) => {
+                    jersey[header] = values[index] ? values[index].replace(/"/g, '') : '';
+                });
+                
+                console.log(`Jersey ${i}:`, jersey);
+                console.log(`Available value: "${jersey.available}" (length: ${jersey.available.length})`);
+                console.log(`Available === 'true': ${jersey.available === 'true'}`);
+                console.log('---');
+            }
+        })
+        .catch(error => {
+            console.error('Test error:', error);
+        });
+}
+
+// Simple test to check CSV content
+function testCSVContent() {
+    console.log('=== SIMPLE CSV CONTENT TEST ===');
+    fetch(`jerseys.csv?t=${Date.now()}`)
+        .then(response => response.text())
+        .then(csvText => {
+            console.log('Raw CSV content:');
+            console.log('---START---');
+            console.log(csvText);
+            console.log('---END---');
+            
+            const lines = csvText.trim().split('\n');
+            console.log('Number of lines:', lines.length);
+            
+            lines.forEach((line, index) => {
+                console.log(`Line ${index}: "${line}"`);
+                if (index > 0) { // Skip header
+                    const firstValue = line.split(',')[0].trim();
+                    console.log(`  First value (availability): "${firstValue}"`);
+                    console.log(`  Is "true": ${firstValue === 'true'}`);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error reading CSV:', error);
+        });
+}
+
 // Manual trigger for debugging
 window.loadJerseys = loadJerseysFromCSV;
 window.loadAllJerseys = displayAllJerseysFromCSV;
+window.refreshJerseys = refreshJerseys; // Add manual refresh function to window
+window.testCSV = testCSVParsing; // Add test function to window
+window.testCSVContent = testCSVContent; // Add simple content test
 
 // Lazy loading for images
 const images = document.querySelectorAll('img');

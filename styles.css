@@ -809,3 +809,57 @@ body {
         padding: 0 15px;
     }
 }
+
+.jersey-item.unavailable {
+    opacity: 0.4;
+    filter: grayscale(70%);
+    position: relative;
+}
+
+.jersey-item.unavailable::after {
+    content: 'UNAVAILABLE';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--secondary-red);
+    color: var(--white);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.jersey-item.available {
+    opacity: 1;
+    filter: none;
+}
+
+.availability-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.jersey-item.available .availability-status {
+    color: #10b981;
+}
+
+.jersey-item.unavailable .availability-status {
+    color: var(--secondary-red);
+    font-weight: 600;
+}
+
+.jersey-item.unavailable .add-to-cart-btn {
+    background: #6b7280 !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.jersey-item.unavailable .add-to-cart-btn:hover {
+    background: #6b7280 !important;
+    transform: none !important;
+}
