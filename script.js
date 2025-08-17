@@ -809,3 +809,31 @@ criticalImages.forEach(src => {
     const img = new Image();
     img.src = src;
 });
+
+// QR Code Generation
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if QR code section exists
+    const qrSection = document.getElementById('qr-code');
+    if (!qrSection) return;
+
+    // Generate QR Code
+    const qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: "https://www.newenglandkitz.com",
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // Download QR Code functionality
+    document.getElementById('downloadQR').addEventListener('click', function() {
+        const canvas = document.querySelector('#qrcode canvas');
+        if (canvas) {
+            const link = document.createElement('a');
+            link.download = 'newenglandkitz-qr.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    });
+});

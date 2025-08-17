@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -114,6 +115,26 @@
             <h2 class="section-title">In Stock Jerseys</h2>
             <div class="jersey-grid" id="jersey-grid">
                 <!-- Jersey items will be loaded here dynamically from CSV -->
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Code Section -->
+    <section id="qr-code" class="qr-section">
+        <div class="container">
+            <h2 class="section-title">QR Code for New England Kits</h2>
+            <div class="qr-container">
+                <div class="qr-code-display">
+                    <div id="qrcode"></div>
+                </div>
+                <div class="qr-info">
+                    <h3>Scan to Visit</h3>
+                    <p class="qr-url">www.newenglandkitz.com</p>
+                    <button id="downloadQR" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        Download QR Code
+                    </button>
+                </div>
             </div>
         </div>
     </section>
