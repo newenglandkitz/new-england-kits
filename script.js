@@ -344,22 +344,19 @@ function parseCSV(csvText) {
         
         console.log('Final jersey object:', jersey);
         
-        // Check availability status with more detailed logging
-        const availableValue = jersey.available;
-        const isAvailable = availableValue === 'true';
+        // Check status with more detailed logging
+        const statusValue = jersey.status;
+        const isAvailable = statusValue === 'Available';
         
-        console.log(`\n--- Availability Check ---`);
-        console.log(`Available value: "${availableValue}"`);
-        console.log(`Available value type: ${typeof availableValue}`);
-        console.log(`Available value length: ${availableValue ? availableValue.length : 0}`);
-        console.log(`Available value char codes: ${availableValue ? availableValue.split('').map(c => c.charCodeAt(0)) : 'undefined'}`);
+        console.log(`\n--- Status Check ---`);
+        console.log(`Status value: "${statusValue}"`);
+        console.log(`Status value type: ${typeof statusValue}`);
+        console.log(`Status value length: ${statusValue ? statusValue.length : 0}`);
+        console.log(`Status value char codes: ${statusValue ? statusValue.split('').map(c => c.charCodeAt(0)) : 'undefined'}`);
         console.log(`Is available: ${isAvailable}`);
-        console.log(`Comparison: "${availableValue}" === "true" = ${availableValue === 'true'}`);
+        console.log(`Comparison: "${statusValue}" === "Available" = ${statusValue === 'Available'}`);
         
         // Check why jersey might be filtered out
-        if (!isAvailable) {
-            console.log(`❌ Jersey "${jersey.name}" filtered out - available: "${availableValue}"`);
-        }
         if (!jersey.name) {
             console.log(`❌ Jersey filtered out - missing name`);
         }
@@ -367,10 +364,10 @@ function parseCSV(csvText) {
             console.log(`❌ Jersey "${jersey.name}" filtered out - missing image`);
         }
         
-        // Only add if has required fields (include all regardless of availability)
+        // Only add if has required fields (include all regardless of status)
         if (jersey.name && jersey.image) {
             jerseys.push(jersey);
-            console.log(`✅ Added jersey: ${jersey.name} (available: ${isAvailable})`);
+            console.log(`✅ Added jersey: ${jersey.name} (status: ${statusValue})`);
         } else {
             console.log(`❌ Filtered out jersey: ${jersey.name} (name: ${!!jersey.name}, image: ${!!jersey.image})`);
         }
@@ -431,10 +428,10 @@ function displayAllJerseysFromCSV() {
                     jersey[header] = values[index] ? values[index].replace(/"/g, '') : '';
                 });
                 
-                // Include all jerseys regardless of available flag
+                // Include all jerseys regardless of status
                 if (jersey.name && jersey.image) {
                     allJerseys.push(jersey);
-                    console.log(`DEBUG: Added jersey "${jersey.name}" (available: ${jersey.available})`);
+                    console.log(`DEBUG: Added jersey "${jersey.name}" (status: ${jersey.status})`);
                 }
             }
             
@@ -457,9 +454,11 @@ function createJerseyItem(jersey) {
     const jerseyItem = document.createElement('div');
     jerseyItem.className = 'jersey-item';
     
-    // Add availability indicator for debugging
-    const availabilityClass = jersey.available === 'true' ? 'available' : 'unavailable';
-    const availabilityText = jersey.available === 'true' ? '' : ' (UNAVAILABLE)';
+    // Add status indicator
+    const isAvailable = jersey.status === 'Available';
+    const availabilityClass = isAvailable ? 'available' : 'unavailable';
+    
+    console.log(`Jersey: ${jersey.name}, Status: "${jersey.status}", IsAvailable: ${isAvailable}, Class: ${availabilityClass}`);
     
     // Apply the availability class to the jersey item
     jerseyItem.classList.add(availabilityClass);
@@ -472,11 +471,9 @@ function createJerseyItem(jersey) {
             </div>
         </div>
         <div class="jersey-info">
-            <h3>${jersey.name}${availabilityText}</h3>
+            <h3>${jersey.name}</h3>
             <p class="jersey-team">${jersey.team}</p>
             <p class="jersey-price">$${jersey.price}</p>
-            <p class="availability-status">Status: ${jersey.available === 'true' ? 'Available' : 'Unavailable'}</p>
-            <button class="add-to-cart-btn" ${jersey.available !== 'true' ? 'disabled' : ''}>${jersey.available === 'true' ? 'Add to Cart' : 'Out of Stock'}</button>
         </div>
     `;
     

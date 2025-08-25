@@ -811,18 +811,16 @@ body {
 }
 
 .jersey-item.unavailable {
-    opacity: 0.4;
-    filter: grayscale(70%);
     position: relative;
 }
 
 .jersey-item.unavailable::after {
-    content: 'UNAVAILABLE';
+    content: 'COMING SOON';
     position: absolute;
     top: 15px;
     right: 15px;
-    background: var(--secondary-red);
-    color: var(--white);
+    background: var(--accent-gold);
+    color: var(--dark-green);
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 0.75rem;
@@ -834,8 +832,7 @@ body {
 }
 
 .jersey-item.available {
-    opacity: 1;
-    filter: none;
+    /* No special styling needed */
 }
 
 .availability-status {
