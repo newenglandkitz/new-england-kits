@@ -954,3 +954,41 @@ body {
         padding: 15px;
     }
 }
+
+/* Visit Counter Styles */
+.visit-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #cccccc;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.visit-counter i {
+    color: var(--accent-gold);
+    font-size: 16px;
+}
+
+.visit-counter span {
+    font-weight: 500;
+    color: #cccccc;
+}
+
+/* Responsive design for visit counter */
+@media (max-width: 768px) {
+    .visit-counter {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .visit-counter i {
+        font-size: 14px;
+    }
+}

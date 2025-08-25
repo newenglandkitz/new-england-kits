@@ -618,6 +618,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+    
+    // Initialize visit counter
+    initializeVisitCounter();
 });
 
 // Test function to check CSV parsing
@@ -829,4 +832,47 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
+});
+
+// Visit Counter functionality
+function initializeVisitCounter() {
+    // Get current visit count from localStorage
+    let visitCount = localStorage.getItem('visitCount') || 0;
+    
+    // Increment the count
+    visitCount = parseInt(visitCount) + 1;
+    
+    // Save back to localStorage
+    localStorage.setItem('visitCount', visitCount);
+    
+    // Display the counter
+    displayVisitCounter(visitCount);
+}
+
+function displayVisitCounter(count) {
+    // Create or update the visit counter element
+    let counterElement = document.getElementById('visit-counter');
+    
+    if (!counterElement) {
+        counterElement = document.createElement('div');
+        counterElement.id = 'visit-counter';
+        counterElement.className = 'visit-counter';
+        counterElement.innerHTML = `
+            <i class="fas fa-eye"></i>
+            <span>Visits: ${count.toLocaleString()}</span>
+        `;
+        
+        // Add to the footer
+        const footerBottom = document.querySelector('.footer-bottom');
+        if (footerBottom) {
+            footerBottom.appendChild(counterElement);
+        }
+    } else {
+        counterElement.querySelector('span').textContent = `Visits: ${count.toLocaleString()}`;
+    }
+}
+
+// Initialize visit counter when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initializeVisitCounter();
 });
