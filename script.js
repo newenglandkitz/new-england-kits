@@ -477,11 +477,7 @@ function createJerseyItem(jersey) {
         </div>
     `;
     
-    // Add visual styling for unavailable items
-    if (jersey.available !== 'true') {
-        jerseyItem.style.opacity = '0.6';
-        jerseyItem.style.filter = 'grayscale(50%)';
-    }
+    // No visual styling needed - all items display normally
     
     return jerseyItem;
 }
