@@ -469,6 +469,7 @@ function createJerseyItem(jersey) {
             <div class="jersey-overlay">
                 <button class="quick-view-btn">Quick View</button>
             </div>
+            ${jersey.status !== 'Available' ? `<div class="availability-status">${jersey.status}</div>` : ''}
         </div>
         <div class="jersey-info">
             <h3>${jersey.name}</h3>

@@ -836,18 +836,29 @@ body {
 }
 
 .availability-status {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--accent-gold);
+    color: var(--dark-green);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .jersey-item.available .availability-status {
-    color: #10b981;
+    background: #10b981;
+    color: white;
 }
 
 .jersey-item.unavailable .availability-status {
-    color: var(--secondary-red);
-    font-weight: 600;
+    background: var(--secondary-red);
+    color: white;
 }
 
 .jersey-item.unavailable .add-to-cart-btn {
