@@ -814,22 +814,7 @@ body {
     position: relative;
 }
 
-.jersey-item.unavailable::after {
-    content: 'COMING SOON';
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: var(--accent-gold);
-    color: var(--dark-green);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
+/* Removed old ::after badge system - now using dynamic HTML badges */
 
 .jersey-item.available {
     /* No special styling needed */
