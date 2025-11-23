@@ -135,12 +135,13 @@ document.querySelectorAll('.quick-view-btn').forEach(button => {
         const jerseyTeam = jerseyItem.querySelector('.jersey-team').textContent;
         const jerseyPrice = jerseyItem.querySelector('.jersey-price').textContent;
         const jerseyImage = jerseyItem.querySelector('img').src;
+        const jerseySizes = jerseyItem.querySelector('.jersey-sizes') ? jerseyItem.querySelector('.jersey-sizes').textContent.replace('Sizes: ', '') : '';
         
-        showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage);
+        showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes);
     });
 });
 
-function showQuickView(name, team, price, image) {
+function showQuickView(name, team, price, image, sizes = '') {
     // Create modal overlay
     const modal = document.createElement('div');
     modal.className = 'quick-view-modal';
@@ -172,11 +173,14 @@ function showQuickView(name, team, price, image) {
         transition: transform 0.3s ease;
     `;
     
+    const sizesDisplay = sizes ? `<p style="color: #64748b; margin-bottom: 1rem; font-size: 1rem;">Sizes: ${sizes}</p>` : '';
+    
     modalContent.innerHTML = `
         <img src="${image}" alt="${name}" style="width: 100%; max-width: 300px; border-radius: 10px; margin-bottom: 1rem;">
         <h2 style="color: #1e293b; margin-bottom: 0.5rem;">${name}</h2>
         <p style="color: #64748b; margin-bottom: 0.5rem;">${team}</p>
-        <p style="font-size: 1.5rem; font-weight: 700; color: #2563eb; margin-bottom: 1.5rem;">${price}</p>
+        <p style="font-size: 1.5rem; font-weight: 700; color: #2563eb; margin-bottom: 0.5rem;">${price}</p>
+        ${sizesDisplay}
         <button class="modal-add-to-cart" style="background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-right: 1rem;">Add to Cart</button>
         <button class="modal-close" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">Close</button>
     `;
@@ -463,6 +467,9 @@ function createJerseyItem(jersey) {
     // Apply the availability class to the jersey item
     jerseyItem.classList.add(availabilityClass);
     
+    // Format sizes display
+    const sizesDisplay = jersey.sizes ? `<p class="jersey-sizes">Sizes: ${jersey.sizes}</p>` : '';
+    
     jerseyItem.innerHTML = `
         <div class="jersey-image">
             <img src="${jersey.image}" alt="${jersey.name}" onerror="this.src='https://via.placeholder.com/300x400/cccccc/666666?text=Image+Not+Found'">
@@ -474,6 +481,7 @@ function createJerseyItem(jersey) {
             <h3>${jersey.name}</h3>
             <p class="jersey-team">${jersey.team}</p>
             <p class="jersey-price">$${jersey.price}</p>
+            ${sizesDisplay}
         </div>
     `;
     
@@ -594,8 +602,9 @@ function initializeJerseyEventListeners() {
             const jerseyTeam = jerseyItem.querySelector('.jersey-team').textContent;
             const jerseyPrice = jerseyItem.querySelector('.jersey-price').textContent;
             const jerseyImage = jerseyItem.querySelector('img').src;
+            const jerseySizes = jerseyItem.querySelector('.jersey-sizes') ? jerseyItem.querySelector('.jersey-sizes').textContent.replace('Sizes: ', '') : '';
             
-            showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage);
+            showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes);
         });
     });
 }

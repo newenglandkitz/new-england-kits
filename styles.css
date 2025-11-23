@@ -424,7 +424,14 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.jersey-sizes {
+    color: var(--text-light);
+    font-size: 0.95rem;
     margin-bottom: 1rem;
+    font-weight: 500;
 }
 
 .add-to-cart-btn {

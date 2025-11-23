@@ -1,5 +1,6 @@
-image,name,team,price,status
-img/IMG-4808.jpeg,Barcelona Pink Special Edition,Fc Barcelona,45,Available
-img/ChelseaHome.jpg,Chelsea Home 25/26 Player Version,Chelsea FC,40,Available
-img/Travis-Scott-x-Nike-x-FC-Barcelona-Retro-2000-01-Home-Skeleton-Jersey-Multicolor.jpeg,Travis Scott Barcelona Skeleton Special Edition,FC Barcelona,45,Available
-img/Pedri8.jpeg,Barcelona Pink Special Edition Pedri 8,Fc Barcelona,50,Available
+image,name,team,price,status,sizes
+img/IMG-4808.jpeg,Barcelona Pink Special Edition,Fc Barcelona,45,Available,S
+img/ChelseaHome.jpg,Chelsea Home 25/26 Player Version,Chelsea FC,40,Available,M L 
+img/Travis-Scott-x-Nike-x-FC-Barcelona-Retro-2000-01-Home-Skeleton-Jersey-Multicolor.jpeg,Travis Scott Barcelona Skeleton Special Edition,FC Barcelona,45,Available,S M L
+img/cherry blossom.webp,Japan Cherry Blossom Player Version,Japan,45,Available,M
+img/Portugal Jersey.webp,Portugal Concept Jersey,Portugal,40,Available,M 
