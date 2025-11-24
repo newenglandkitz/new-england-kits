@@ -1,15 +1,15 @@
-image,name,team,price,status,sizes
-img/IMG-4808.jpeg,Barcelona Pink Special Edition,Fc Barcelona,45,Available,S
-img/ChelseaHome.jpg,Chelsea Home 25/26 Player Version,Chelsea FC,40,Available,M L 
-img/Travis-Scott-x-Nike-x-FC-Barcelona-Retro-2000-01-Home-Skeleton-Jersey-Multicolor.jpeg,Travis Scott Barcelona Skeleton Special Edition,FC Barcelona,45,Available,S M L
-img/cherry blossom.webp,Japan Cherry Blossom Player Version,Japan,45,Available,M
-img/portugal.png,Portugal Concept Jersey,Portugal,40,Available,M 
-img/Brazil Stussy.jpg,Brazil Stussy 2002 Away,Brazil,45,Available,M
-img/Brazil Pink.webp,Brazil Pink Christ Redeemer,Brazil,40,Available,S M L
-img/wave.png,Japan Wave,Japan,40,Available,M 
-img/ronaldomanutd.jpg,Man United 07/08 Black Jersey,Manchester United,50,Available,M
-img/Japan Blue Anime.jpeg,Japan Blue Anime,Japan,40,Available,S
-img/City Black.jpeg,Man City Black Away,Manchester City,45,Available,M L
-img/Barca Home.jpeg,Barca Home 25/26,FC Barcelona,40,Available,M
-img/Japan.png,Japan Pink Special Jersey,Japan,40,Available,M
-img/Purple Real.jpeg,Real Madrid Away 2017,Real Madrid CF,50,Sold Out,M
+image,name,team,price,status,sizes,stock
+img/IMG-4808.jpeg,Barcelona Pink Special Edition,Fc Barcelona,45,Available,S,1
+img/ChelseaHome.jpg,Chelsea Home 25/26 Player Version,Chelsea FC,40,Available,M L,1
+img/Travis-Scott-x-Nike-x-FC-Barcelona-Retro-2000-01-Home-Skeleton-Jersey-Multicolor.jpeg,Travis Scott Barcelona Skeleton Special Edition,FC Barcelona,45,Available,S M L,5
+img/cherry blossom.webp,Japan Cherry Blossom Player Version,Japan,45,Available,M,1
+img/portugal.png,Portugal Concept Jersey,Portugal,40,Available,M,1
+img/Brazil Stussy.jpg,Brazil Stussy 2002 Away,Brazil,45,Available,M,2
+img/Brazil Pink.webp,Brazil Pink Christ Redeemer,Brazil,40,Available,S M L,4
+img/wave.png,Japan Wave,Japan,40,Available,M,1
+img/ronaldomanutd.jpg,Man United 07/08 Black Jersey,Manchester United,50,Available,M,1
+img/Japan Blue Anime.jpeg,Japan Blue Anime,Japan,40,Available,S,1
+img/City Black.jpeg,Man City Black Away,Manchester City,45,Available,M L,2
+img/Barca Home.jpeg,Barca Home 25/26,FC Barcelona,40,Available,M,1
+img/Japan.png,Japan Pink Special Jersey,Japan,40,Available,M,1
+img/Purple Real.jpeg,Real Madrid Away 2017,Real Madrid CF,50,Available,M,0

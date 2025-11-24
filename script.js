@@ -136,12 +136,13 @@ document.querySelectorAll('.quick-view-btn').forEach(button => {
         const jerseyPrice = jerseyItem.querySelector('.jersey-price').textContent;
         const jerseyImage = jerseyItem.querySelector('img').src;
         const jerseySizes = jerseyItem.querySelector('.jersey-sizes') ? jerseyItem.querySelector('.jersey-sizes').textContent.replace('Sizes: ', '') : '';
+        const jerseyStock = jerseyItem.querySelector('.jersey-stock') ? jerseyItem.querySelector('.jersey-stock').textContent.match(/\d+/) : '0';
         
-        showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes);
+        showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes, jerseyStock ? jerseyStock[0] : '0');
     });
 });
 
-function showQuickView(name, team, price, image, sizes = '') {
+function showQuickView(name, team, price, image, sizes = '', stock = '0') {
     // Create modal overlay
     const modal = document.createElement('div');
     modal.className = 'quick-view-modal';
@@ -173,7 +174,17 @@ function showQuickView(name, team, price, image, sizes = '') {
         transition: transform 0.3s ease;
     `;
     
-    const sizesDisplay = sizes ? `<p style="color: #64748b; margin-bottom: 1rem; font-size: 1rem;">Sizes: ${sizes}</p>` : '';
+    const sizesDisplay = sizes ? `<p style="color: #64748b; margin-bottom: 0.5rem; font-size: 1rem;">Sizes: ${sizes}</p>` : '';
+    
+    // Format stock display
+    const stockValue = parseInt(stock) || 0;
+    let stockDisplay = '';
+    if (stockValue > 0) {
+        const stockColor = stockValue <= 2 ? '#ef4444' : stockValue <= 5 ? '#f59e0b' : '#10b981';
+        stockDisplay = `<p style="color: ${stockColor}; margin-bottom: 1rem; font-size: 1rem; font-weight: 600;"><i class="fas fa-box"></i> Stock: ${stockValue}</p>`;
+    } else {
+        stockDisplay = `<p style="color: #ef4444; margin-bottom: 1rem; font-size: 1rem; font-weight: 600;"><i class="fas fa-times-circle"></i> Out of Stock</p>`;
+    }
     
     modalContent.innerHTML = `
         <img src="${image}" alt="${name}" style="width: 100%; max-width: 300px; border-radius: 10px; margin-bottom: 1rem;">
@@ -181,6 +192,7 @@ function showQuickView(name, team, price, image, sizes = '') {
         <p style="color: #64748b; margin-bottom: 0.5rem;">${team}</p>
         <p style="font-size: 1.5rem; font-weight: 700; color: #2563eb; margin-bottom: 0.5rem;">${price}</p>
         ${sizesDisplay}
+        ${stockDisplay}
         <button class="modal-add-to-cart" style="background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-right: 1rem;">Add to Cart</button>
         <button class="modal-close" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">Close</button>
     `;
@@ -470,6 +482,16 @@ function createJerseyItem(jersey) {
     // Format sizes display
     const sizesDisplay = jersey.sizes ? `<p class="jersey-sizes">Sizes: ${jersey.sizes}</p>` : '';
     
+    // Format stock display with visual indicators
+    const stockValue = jersey.stock ? parseInt(jersey.stock) : 0;
+    let stockDisplay = '';
+    if (stockValue > 0) {
+        const stockClass = stockValue <= 2 ? 'stock-low' : stockValue <= 5 ? 'stock-medium' : 'stock-high';
+        stockDisplay = `<p class="jersey-stock ${stockClass}"><i class="fas fa-box"></i> Stock: ${stockValue}</p>`;
+    } else {
+        stockDisplay = `<p class="jersey-stock stock-out"><i class="fas fa-times-circle"></i> Out of Stock</p>`;
+    }
+    
     jerseyItem.innerHTML = `
         <div class="jersey-image">
             <img src="${jersey.image}" alt="${jersey.name}" onerror="this.src='https://via.placeholder.com/300x400/cccccc/666666?text=Image+Not+Found'">
@@ -482,6 +504,7 @@ function createJerseyItem(jersey) {
             <p class="jersey-team">${jersey.team}</p>
             <p class="jersey-price">$${jersey.price}</p>
             ${sizesDisplay}
+            ${stockDisplay}
         </div>
     `;
     
@@ -603,8 +626,9 @@ function initializeJerseyEventListeners() {
             const jerseyPrice = jerseyItem.querySelector('.jersey-price').textContent;
             const jerseyImage = jerseyItem.querySelector('img').src;
             const jerseySizes = jerseyItem.querySelector('.jersey-sizes') ? jerseyItem.querySelector('.jersey-sizes').textContent.replace('Sizes: ', '') : '';
+            const jerseyStock = jerseyItem.querySelector('.jersey-stock') ? jerseyItem.querySelector('.jersey-stock').textContent.match(/\d+/) : '0';
             
-            showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes);
+            showQuickView(jerseyName, jerseyTeam, jerseyPrice, jerseyImage, jerseySizes, jerseyStock ? jerseyStock[0] : '0');
         });
     });
 }

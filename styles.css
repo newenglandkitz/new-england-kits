@@ -430,8 +430,37 @@ body {
 .jersey-sizes {
     color: var(--text-light);
     font-size: 0.95rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
+}
+
+.jersey-stock {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.jersey-stock i {
+    font-size: 0.9rem;
+}
+
+.jersey-stock.stock-high {
+    color: #10b981;
+}
+
+.jersey-stock.stock-medium {
+    color: #f59e0b;
+}
+
+.jersey-stock.stock-low {
+    color: #ef4444;
+}
+
+.jersey-stock.stock-out {
+    color: #ef4444;
 }
 
 .add-to-cart-btn {
