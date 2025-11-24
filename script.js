@@ -484,6 +484,8 @@ function createJerseyItem(jersey) {
     
     // Format stock display with visual indicators
     const stockValue = jersey.stock ? parseInt(jersey.stock) : 0;
+    const isSoldOut = jersey.status === 'Sold Out' || stockValue === 0;
+    
     let stockDisplay = '';
     if (stockValue > 0) {
         const stockClass = stockValue <= 2 ? 'stock-low' : stockValue <= 5 ? 'stock-medium' : 'stock-high';
@@ -492,9 +494,13 @@ function createJerseyItem(jersey) {
         stockDisplay = `<p class="jersey-stock stock-out"><i class="fas fa-times-circle"></i> Out of Stock</p>`;
     }
     
+    // Sold Out badge overlay
+    const soldOutBadge = isSoldOut ? '<div class="sold-out-badge">SOLD OUT</div>' : '';
+    
     jerseyItem.innerHTML = `
         <div class="jersey-image">
             <img src="${jersey.image}" alt="${jersey.name}" onerror="this.src='https://via.placeholder.com/300x400/cccccc/666666?text=Image+Not+Found'">
+            ${soldOutBadge}
             <div class="jersey-overlay">
                 <button class="quick-view-btn">Quick View</button>
             </div>
