@@ -301,23 +301,45 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Load Jerseys from CSV
+// Google Sheets CSV URL - Replace with your published Google Sheet CSV URL
+// To get this URL: Google Sheet > File > Share > Publish to web > CSV > Copy link
+const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/14NWS1ws3LPUbXnGL10ryAvhFpCaVt4ZoQOeYQsGSGR4/export?format=csv&gid=0'; // Google Sheets CSV export URL
+
+// Load Jerseys from CSV (Google Sheets or local file)
 async function loadJerseysFromCSV() {
     try {
         console.log('Loading jerseys from CSV...');
-        // Add cache-busting parameter to force fresh load
-        const response = await fetch(`jerseys.csv?t=${Date.now()}`);
+        console.log('Google Sheets URL configured:', GOOGLE_SHEETS_CSV_URL);
+        
+        // Use Google Sheets URL if configured, otherwise use local file
+        let csvUrl;
+        if (GOOGLE_SHEETS_CSV_URL.startsWith('http')) {
+            // Google Sheets URL - add cache busting parameter
+            const separator = GOOGLE_SHEETS_CSV_URL.includes('?') ? '&' : '?';
+            csvUrl = `${GOOGLE_SHEETS_CSV_URL}${separator}_t=${Date.now()}`;
+            console.log('✅ Using Google Sheets URL');
+        } else {
+            // Local file
+            csvUrl = `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}`;
+            console.log('⚠️ Using local CSV file');
+        }
+        
+        console.log('Fetching from URL:', csvUrl);
+        const response = await fetch(csvUrl);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const csvText = await response.text();
-        console.log('CSV loaded:', csvText.substring(0, 200) + '...');
+        console.log('CSV loaded successfully! First 200 chars:', csvText.substring(0, 200) + '...');
+        console.log('Total CSV length:', csvText.length);
         const jerseys = parseCSV(csvText);
         console.log('Parsed jerseys:', jerseys.length, 'items');
         displayJerseys(jerseys);
     } catch (error) {
-        console.error('Error loading jerseys:', error);
+        console.error('❌ Error loading jerseys from Google Sheets:', error);
+        console.error('Error details:', error.message);
         // Fallback to static content if CSV fails to load
+        console.log('Falling back to static jerseys...');
         displayFallbackJerseys();
     }
 }
@@ -427,7 +449,10 @@ function displayJerseys(jerseys) {
 // Debug function to show all jerseys regardless of available flag
 function displayAllJerseysFromCSV() {
     console.log('DEBUG: Loading ALL jerseys regardless of available flag');
-    fetch(`jerseys.csv?t=${Date.now()}`)
+    const csvUrl = GOOGLE_SHEETS_CSV_URL.startsWith('http') 
+        ? `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}` 
+        : `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}`;
+    fetch(csvUrl)
         .then(response => response.text())
         .then(csvText => {
             const lines = csvText.trim().split('\n');
@@ -470,11 +495,12 @@ function createJerseyItem(jersey) {
     const jerseyItem = document.createElement('div');
     jerseyItem.className = 'jersey-item';
     
-    // Add status indicator
-    const isAvailable = jersey.status === 'Available';
+    // Add status indicator - check status with trimming
+    const statusRaw = jersey.status ? jersey.status.trim() : '';
+    const isAvailable = statusRaw === 'Available';
     const availabilityClass = isAvailable ? 'available' : 'unavailable';
     
-    console.log(`Jersey: ${jersey.name}, Status: "${jersey.status}", IsAvailable: ${isAvailable}, Class: ${availabilityClass}`);
+    console.log(`Jersey: ${jersey.name}, Status: "${statusRaw}" (raw: "${jersey.status}"), IsAvailable: ${isAvailable}, Class: ${availabilityClass}`);
     
     // Apply the availability class to the jersey item
     jerseyItem.classList.add(availabilityClass);
@@ -484,7 +510,19 @@ function createJerseyItem(jersey) {
     
     // Format stock display with visual indicators
     const stockValue = jersey.stock ? parseInt(jersey.stock) : 0;
-    const isSoldOut = jersey.status === 'Sold Out' || stockValue === 0;
+    const statusTrimmed = jersey.status ? jersey.status.trim() : '';
+    
+    // More robust sold out detection - check multiple variations
+    const isSoldOut = statusTrimmed.toLowerCase() === 'sold out' || 
+                      statusTrimmed === 'Sold Out' || 
+                      stockValue === 0;
+    
+    // Debug logging for sold out detection
+    console.log(`Jersey: "${jersey.name}" - Status: "${statusTrimmed}" (raw: "${jersey.status}"), Stock: ${stockValue}, isSoldOut: ${isSoldOut}`);
+    
+    if (isSoldOut) {
+        console.log(`✅ Sold Out detected for "${jersey.name}": status="${statusTrimmed}", stock=${stockValue}`);
+    }
     
     let stockDisplay = '';
     if (stockValue > 0) {
@@ -494,7 +532,7 @@ function createJerseyItem(jersey) {
         stockDisplay = `<p class="jersey-stock stock-out"><i class="fas fa-times-circle"></i> Out of Stock</p>`;
     }
     
-    // Sold Out badge overlay
+    // Sold Out badge overlay - using JavaScript badge (CSS ::after also works but this gives more control)
     const soldOutBadge = isSoldOut ? '<div class="sold-out-badge">SOLD OUT</div>' : '';
     
     jerseyItem.innerHTML = `
@@ -665,7 +703,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // Test function to check CSV parsing
 function testCSVParsing() {
     console.log('=== CSV PARSING TEST ===');
-    fetch(`jerseys.csv?t=${Date.now()}`)
+    const csvUrl = GOOGLE_SHEETS_CSV_URL.startsWith('http') 
+        ? `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}` 
+        : `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}`;
+    fetch(csvUrl)
         .then(response => response.text())
         .then(csvText => {
             console.log('Raw CSV:', csvText);
@@ -702,7 +743,10 @@ function testCSVParsing() {
 // Simple test to check CSV content
 function testCSVContent() {
     console.log('=== SIMPLE CSV CONTENT TEST ===');
-    fetch(`jerseys.csv?t=${Date.now()}`)
+    const csvUrl = GOOGLE_SHEETS_CSV_URL.startsWith('http') 
+        ? `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}` 
+        : `${GOOGLE_SHEETS_CSV_URL}?t=${Date.now()}`;
+    fetch(csvUrl)
         .then(response => response.text())
         .then(csvText => {
             console.log('Raw CSV content:');
